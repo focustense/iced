@@ -73,7 +73,7 @@ impl<Theme> Compositor<Theme> {
                 .formats
                 .iter()
                 .copied()
-                .find(wgpu::TextureFormat::is_srgb)
+                .find(|format| format.describe().srgb)
                 .or_else(|| {
                     log::warn!("No sRGB format found!");
 
