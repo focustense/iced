@@ -4,6 +4,7 @@ use crate::core::mouse;
 use crate::core::touch;
 
 pub use crate::core::event::Status;
+use crate::core::event::TickEvent;
 
 /// A [`Canvas`] event.
 ///
@@ -18,4 +19,7 @@ pub enum Event {
 
     /// A keyboard event.
     Keyboard(keyboard::Event),
+
+    /// A tick event.
+    Tick(TickEvent),
 }

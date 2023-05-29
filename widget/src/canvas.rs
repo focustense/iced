@@ -156,7 +156,8 @@ where
             core::Event::Touch(touch_event) => Some(Event::Touch(touch_event)),
             core::Event::Keyboard(keyboard_event) => {
                 Some(Event::Keyboard(keyboard_event))
-            }
+            },
+            core::Event::Tick(tick_event) => Some(Event::Tick(tick_event)),
             _ => None,
         };
 

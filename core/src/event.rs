@@ -26,6 +26,15 @@ pub enum Event {
 
     /// A platform specific event
     PlatformSpecific(PlatformSpecific),
+
+    /// An arbitrary timing event that fires every frame, regardless of input. Generally used for
+    /// animated components.
+    ///
+    /// Iced does not directly initiate this event, as its source depends on the environment in
+    /// which Iced is running. For example, in an ECS environment there will generally be a system
+    /// responsible for piping the timing information via this event. It is up to the individual app
+    /// to determine how and when to send this event.
+    Tick(TickEvent),
 }
 
 /// A platform specific event
@@ -44,6 +53,23 @@ pub enum MacOS {
     ///
     /// [bundled]: https://developer.apple.com/library/archive/documentation/CoreFoundation/Conceptual/CFBundles/BundleTypes/BundleTypes.html#//apple_ref/doc/uid/10000123i-CH101-SW19
     ReceivedUrl(String),
+}
+
+/// A timing event that fires every frame, regardless of input. Used for animation.
+#[derive(Debug, Clone, Copy, PartialEq)]
+pub struct TickEvent {
+    /// Seconds elapsed since last tick.
+    pub delta_seconds: f32,
+
+    /// Total seconds elapsed since the app was started.
+    pub total_seconds: f32,
+}
+
+impl TickEvent {
+    /// Creates a new ['TickEvent'].
+    pub fn new(delta_seconds: f32, total_seconds: f32) -> Self {
+        Self { delta_seconds: delta_seconds, total_seconds }
+    }
 }
 
 /// The status of an [`Event`] after being processed.
